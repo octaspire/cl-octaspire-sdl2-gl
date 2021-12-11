@@ -40,34 +40,46 @@
       (sdl-quit)
       (ok (= 0 retval)))))
 
-(deftest test-sdl-init-with-video
-  (testing "Calling SDL-INIT with +SDL-INIT-VIDEO+ works."
-    (let ((retval (sdl-init +SDL-INIT-VIDEO+)))
-      (sdl-quit)
-      (ok (= 0 retval)))))
-
 (deftest test-sdl-init-with-audio
   (testing "Calling SDL-INIT with +SDL-INIT-AUDIO+ works."
     (let ((retval (sdl-init +SDL-INIT-AUDIO+)))
       (sdl-quit)
       (ok (= 0 retval)))))
 
+(deftest test-sdl-init-with-video
+    (testing "Calling SDL-INIT with +SDL-INIT-VIDEO+ works."
+             (let ((retval (sdl-init +SDL-INIT-VIDEO+)))
+               (sdl-quit)
+               (ok (= 0 retval)))))
+
+(deftest test-sdl-init-with-joystick
+    (testing "Calling SDL-INIT with +SDL-INIT-JOYSTICK+ works."
+             (let ((retval (sdl-init +SDL-INIT-JOYSTICK+)))
+               (sdl-quit)
+               (ok (= 0 retval)))))
+
 ;; WITH-INIT
 
 (deftest test-with-init-with-timer
-  (testing "Calling WITH-INIT with +SDL-INIT-TIMER+ works."
-    (let ((retval 128))
-      (ok (= retval (with-init (+SDL-INIT-TIMER+)
-                      retval))))))
-
-(deftest test-with-init-with-video
-  (testing "Calling WITH-INIT with +SDL-INIT-VIDEO+ works."
-    (let ((retval 128))
-      (ok (= retval (with-init (+SDL-INIT-VIDEO+)
-                      retval))))))
+    (testing "Calling WITH-INIT with +SDL-INIT-TIMER+ works."
+             (let ((retval 128))
+               (ok (= retval (with-init (+SDL-INIT-TIMER+)
+                               retval))))))
 
 (deftest test-with-init-with-audio
   (testing "Calling WITH-INIT with +SDL-INIT-AUDIO+ works."
     (let ((retval 128))
       (ok (= retval (with-init (+SDL-INIT-AUDIO+)
                       retval))))))
+
+(deftest test-with-init-with-video
+    (testing "Calling WITH-INIT with +SDL-INIT-VIDEO+ works."
+             (let ((retval 128))
+               (ok (= retval (with-init (+SDL-INIT-VIDEO+)
+                               retval))))))
+
+(deftest test-with-init-with-joystick
+    (testing "Calling WITH-INIT with +SDL-INIT-JOYSTICK+ works."
+             (let ((retval 128))
+               (ok (= retval (with-init (+SDL-INIT-JOYSTICK+)
+                               retval))))))

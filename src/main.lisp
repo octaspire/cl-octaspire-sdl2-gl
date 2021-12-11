@@ -24,7 +24,8 @@
            :sdl-quit
            :+SDL-INIT-TIMER+
            :+SDL-INIT-AUDIO+
-           :+SDL-INIT-VIDEO+))
+           :+SDL-INIT-VIDEO+
+           :+SDL-INIT-JOYSTICK+))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
