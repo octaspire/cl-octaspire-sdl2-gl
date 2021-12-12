@@ -18,20 +18,10 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 (defpackage cl-octaspire-sdl2-gl/tests/main
-  (:use :cl
-   :cl-octaspire-sdl2-gl
-        :rove
-   :bytecurry.mocks))
+  (:use :cl :cl-octaspire-sdl2-gl :rove :bytecurry.mocks))
 (in-package :cl-octaspire-sdl2-gl/tests/main)
 
-;; NOTE: To run this test file, execute `(asdf:test-system :cl-octaspire-sdl2-gl)' in your Lisp.
-
-;; (deftest test-sdl-init-no-args
-;;     (testing "Call SDL-INIT without arguments"
-;;              (with-mocked-functions ((sdl-init (&resr args)
-;;                                                100))
-;;                (ok (= 100 (sdl-init))))))
-
+
 ;; SDL-INIT
 
 (deftest test-sdl-init-with-timer
@@ -58,6 +48,31 @@
                (sdl-quit)
                (ok (= 0 retval)))))
 
+(deftest test-sdl-init-with-haptic
+    (testing "Calling SDL-INIT with +SDL-INIT-HAPTIC+ works."
+             (let ((retval (sdl-init +SDL-INIT-HAPTIC+)))
+               (sdl-quit)
+               (ok (= 0 retval)))))
+
+(deftest test-sdl-init-with-gamecontroller
+    (testing "Calling SDL-INIT with +SDL-INIT-GAMECONTROLLER+ works."
+             (let ((retval (sdl-init +SDL-INIT-GAMECONTROLLER+)))
+               (sdl-quit)
+               (ok (= 0 retval)))))
+
+(deftest test-sdl-init-with-events
+  (testing "Calling SDL-INIT with +SDL-INIT-EVENTS+ works."
+    (let ((retval (sdl-init +SDL-INIT-EVENTS+)))
+      (sdl-quit)
+      (ok (= 0 retval)))))
+
+(deftest test-sdl-init-with-sensor
+  (testing "Calling SDL-INIT with +SDL-INIT-SENSOR+ works."
+    (let ((retval (sdl-init +SDL-INIT-SENSOR+)))
+      (sdl-quit)
+      (ok (= 0 retval)))))
+
+
 ;; WITH-INIT
 
 (deftest test-with-init-with-timer
@@ -83,3 +98,27 @@
              (let ((retval 128))
                (ok (= retval (with-init (+SDL-INIT-JOYSTICK+)
                                retval))))))
+
+(deftest test-with-init-with-haptic
+    (testing "Calling WITH-INIT with +SDL-INIT-HAPTIC+ works."
+             (let ((retval 128))
+               (ok (= retval (with-init (+SDL-INIT-HAPTIC+)
+                               retval))))))
+
+(deftest test-with-init-with-gamecontroller
+    (testing "Calling WITH-INIT with +SDL-INIT-GAMECONTROLLER+ works."
+             (let ((retval 128))
+               (ok (= retval (with-init (+SDL-INIT-GAMECONTROLLER+)
+                               retval))))))
+
+(deftest test-with-init-with-events
+  (testing "Calling WITH-INIT with +SDL-INIT-EVENTS+ works."
+    (let ((retval 128))
+      (ok (= retval (with-init (+SDL-INIT-EVENTS+)
+                      retval))))))
+
+(deftest test-with-init-with-sensor
+  (testing "Calling WITH-INIT with +SDL-INIT-SENSOR+ works."
+    (let ((retval 128))
+      (ok (= retval (with-init (+SDL-INIT-SENSOR+)
+                      retval))))))

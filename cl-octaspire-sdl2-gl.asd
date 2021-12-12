@@ -18,7 +18,7 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 (defsystem "cl-octaspire-sdl2-gl"
-  :version "0.2.0"
+  :version "0.3.0"
   :author "octaspire"
   :license "MIT"
   :depends-on ("cffi" "cffi-libffi" "trivial-main-thread")

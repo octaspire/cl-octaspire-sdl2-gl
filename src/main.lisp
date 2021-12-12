@@ -25,7 +25,11 @@
            :+SDL-INIT-TIMER+
            :+SDL-INIT-AUDIO+
            :+SDL-INIT-VIDEO+
-           :+SDL-INIT-JOYSTICK+))
+           :+SDL-INIT-JOYSTICK+
+           :+SDL-INIT-HAPTIC+
+           :+SDL-INIT-GAMECONTROLLER+
+           :+SDL-INIT-EVENTS+
+           :+SDL-INIT-SENSOR+))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
