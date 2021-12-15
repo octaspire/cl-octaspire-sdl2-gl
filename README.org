@@ -40,14 +40,24 @@ and enter the following program:
         (sdl-destroywindow win)))))
 #+end_src
 
+Or this program:
+
+#+INCLUDE: "documentation/examples/with-window.lisp" lisp
+
 *** Unit Testing
 
 Start a Common Lisp REPL, for example ~sbcl~, ~ccl64~, or ~ecl~ and enter
 the following program:
 
-#+begin_src lis
+#+begin_src lisp
 (ql:quickload :cl-octaspire-sdl2-gl/tests)
 (asdf:test-system :cl-octaspire-sdl2-gl)
+#+end_src
+
+Or give the following command on the terminal:
+
+#+begin_src shell
+make test
 #+end_src
 
 ** License

@@ -19,11 +19,11 @@
 # SOFTWARE.
 LISP ?= sbcl
 
-.PHONY: test repl slynk swank help
+.PHONY: test repl slynk swank demo help
 
 test:
 	@$(LISP) --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
-                 --eval "(asdf:test-system :cl-octaspire-sdl2-gl)"
+                 --eval "(uiop:quit (if (rove:run :cl-octaspire-sdl2-gl/tests :style :dot) 0 1))"
 
 repl:
 	@$(LISP) --eval "(ql:quickload :cl-octaspire-sdl2-gl)"       \
@@ -44,13 +44,17 @@ swank:
                  --eval "(swank:create-server :dont-close t)"        \
                  --eval "(in-package :cl-octaspire-sdl2-gl)"
 
+demo:
+	@$(LISP) --quit --load documentation/examples/with-window.lisp
+
 help:
 	@echo ""
 	@echo "Available targets:"
 	@echo ""
-	@echo "  test  - run unit tests in REPL"
+	@echo "  test  - run unit tests, with exit code 0 for success"
 	@echo "  repl  - start loaded in REPL"
 	@echo "  slynk - start loaded in REPL with slynk server (sly)"
 	@echo "  swank - start loaded in REPL with swank server (slime)"
+	@echo "  demo  - display small demo application"
 	@echo "  help  - display this message"
 	@echo ""

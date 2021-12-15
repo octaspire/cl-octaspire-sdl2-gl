@@ -19,17 +19,48 @@
 ;; SOFTWARE.
 (defpackage cl-octaspire-sdl2-gl
   (:use :cl :cffi :trivial-main-thread)
-  (:export :sdl-init
-           :with-init
-           :sdl-quit
+  (:export ;; Constants declared in include/SDL_render.h
+           :+SDL-RENDERER-SOFTWARE+
+           :+SDL-RENDERER-ACCELERATED+
+           :+SDL-RENDERER-PRESENTVSYNC+
+           :+SDL-RENDERER-TARGETTEXTURE+
+           ;; Constants declared in include/SDL_audio.h
+           :+AUDIO-U8+
+           :+AUDIO-S8+
+           :+AUDIO-U16LSB+
+           :+AUDIO-S16LSB+
+           :+AUDIO-U16MSB+
+           :+AUDIO-S16MSB+
+           :+AUDIO-U16+
+           :+AUDIO-S16+
+           :+AUDIO-S32LSB+
+           :+AUDIO-S32MSB+
+           :+AUDIO-S32+
+           :+AUDIO-F32LSB+
+           :+AUDIO-F32MSB+
+           :+AUDIO-F32+
+           :+AUDIO-U16SYS+
+           :+AUDIO-S16SYS+
+           :+AUDIO-S32SYS+
+           :+AUDIO-F32SYS+
+           ;; Constants declared in include/SDL_stdinc.h
+           :+SDL-FALSE+
+           :+SDL-TRUE+
+           ;; Constants declared in include/SDL.h
            :+SDL-INIT-TIMER+
            :+SDL-INIT-AUDIO+
            :+SDL-INIT-VIDEO+
            :+SDL-INIT-JOYSTICK+
+           :sdl-init
+           :with-init
+           :sdl-quit
+           :+SDL-INIT-JOYSTICK+
            :+SDL-INIT-HAPTIC+
            :+SDL-INIT-GAMECONTROLLER+
            :+SDL-INIT-EVENTS+
-           :+SDL-INIT-SENSOR+))
+           :+SDL-INIT-SENSOR+
+           :+SDL-INIT-NOPARACHUTE+
+           :+SDL-INIT-EVERYTHING+))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -74,16 +105,17 @@
     (cffi:load-foreign-library 'libglu)
     (cffi:load-foreign-library 'libglew)))
 
-(defcfun "SDL_Init" :int
-  (flags :long))
-
+
 ;; Declared in include/SDL_render.h
+
 (defconstant +SDL-RENDERER-SOFTWARE+      #x0001)
 (defconstant +SDL-RENDERER-ACCELERATED+   #x0002)
 (defconstant +SDL-RENDERER-PRESENTVSYNC+  #x0004)
 (defconstant +SDL-RENDERER-TARGETTEXTURE+ #x0008)
 
+
 ;; Declared in include/SDL_audio.h
+
 (defconstant +AUDIO-U8+     #x0008)
 (defconstant +AUDIO-S8+     #x8008)
 (defconstant +AUDIO-U16LSB+ #x0010)
@@ -92,11 +124,9 @@
 (defconstant +AUDIO-S16MSB+ #x9010)
 (defconstant +AUDIO-U16+    +AUDIO-U16LSB+)
 (defconstant +AUDIO-S16+    +AUDIO-S16LSB+)
-
 (defconstant +AUDIO-S32LSB+ #x8020)
 (defconstant +AUDIO-S32MSB+ #x9020)
 (defconstant +AUDIO-S32+    +AUDIO-S16LSB+)
-
 (defconstant +AUDIO-F32LSB+ #x8120)
 (defconstant +AUDIO-F32MSB+ #x9120)
 (defconstant +AUDIO-F32+    +AUDIO-F32LSB+)
@@ -115,11 +145,15 @@
   (defconstant +AUDIO-S32SYS+ +AUDIO-S32MSB+)
   (defconstant +AUDIO-F32SYS+ +AUDIO-F32MSB+))
 
+
 ;; Declared in include/SDL_stdinc.h
+
 (defconstant +SDL-FALSE+ #x0)
 (defconstant +SDL-TRUE+  #x1)
 
+
 ;; Declared in include/SDL.h
+
 (defconstant +SDL-INIT-TIMER+                 #x001)
 (defconstant +SDL-INIT-AUDIO+                 #x010)
 (defconstant +SDL-INIT-VIDEO+                 #x020)
@@ -147,6 +181,9 @@
   (y :int)
   (w :int)
   (h :int))
+
+(defcfun "SDL_Init" :int
+  (flags :long))
 
 (defun set-rect (result rx ry rw rh)
   (trivial-main-thread:with-body-in-main-thread (:blocking t)
