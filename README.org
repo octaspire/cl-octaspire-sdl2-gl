@@ -28,21 +28,7 @@ using:
 Start a Common Lisp REPL, for example ~sbcl~, ~ccl64~, or ~ecl~
 and enter the following program:
 
-#+begin_src lisp
-(ql:quickload :cl-octaspire-sdl2-gl)
-(in-package :cl-octaspire-sdl2-gl)
-(trivial-main-thread:with-body-in-main-thread (:blocking t)
-  (with-init (+SDL-INIT-VIDEO+)
-    (let ((win (sdl-createwindow "Test" 0 0 256 128 0)))
-      (with-foreign-objects ((event '(:union sdl-event)))
-        (loop for i upto 1000 do
-                 (loop while (/= (sdl-pollevent event) 0)))
-        (sdl-destroywindow win)))))
-#+end_src
-
-Or this program:
-
-#+INCLUDE: "documentation/examples/with-window.lisp" lisp
+#+INCLUDE: "documentation/examples/with-window.lisp" src lisp
 
 *** Unit Testing
 
