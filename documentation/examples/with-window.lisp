@@ -8,7 +8,5 @@
         (let ((run t))
           (loop while run
                 do (loop while (/= (sdl-pollevent event) 0)
-                         do
-                         (cffi:with-foreign-slots ((type) event (:union sdl-event))
-                           (when (eq type :SDL-QUIT) (setf run nil))))))))))
-
+                         do (cffi:with-foreign-slots ((type) event (:union sdl-event))
+                              (when (eq type :SDL-QUIT) (setf run nil))))))))))
