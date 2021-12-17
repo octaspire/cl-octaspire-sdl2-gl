@@ -51,16 +51,23 @@
            :+SDL-INIT-AUDIO+
            :+SDL-INIT-VIDEO+
            :+SDL-INIT-JOYSTICK+
-           :sdl-init
-           :with-init
-           :sdl-quit
-           :+SDL-INIT-JOYSTICK+
            :+SDL-INIT-HAPTIC+
            :+SDL-INIT-GAMECONTROLLER+
            :+SDL-INIT-EVENTS+
            :+SDL-INIT-SENSOR+
            :+SDL-INIT-NOPARACHUTE+
-           :+SDL-INIT-EVERYTHING+))
+           :+SDL-INIT-EVERYTHING+
+           :+SDL-TEXTEDITINGEVENT-TEXT-SIZE+
+           :+SDL-TEXTINPUTEVENT-TEXT-SIZE+
+           ;; Declared in include/SDL_pixels.h
+           :sdl-color :r :g :b :a
+           :set-color
+           ;; Declared in include/SDL_rect.h
+           :sdl-rect :x :y :w :h
+           :set-rect
+           :sdl-init
+           :with-init
+           :sdl-quit))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -174,6 +181,24 @@
 (defconstant +SDL-TEXTEDITINGEVENT-TEXT-SIZE+ 32)
 (defconstant +SDL-TEXTINPUTEVENT-TEXT-SIZE+   32)
 
+;; Declared in include/SDL_pixels.h
+(defcstruct (sdl-color :class sdl-color-type)
+  "SDL Color structure."
+  (r :uint8)
+  (g :uint8)
+  (b :uint8)
+  (a :uint8))
+
+(defun set-color (result rr rg rb ra)
+  (trivial-main-thread:with-body-in-main-thread (:blocking t)
+    (with-foreign-slots ((r g b a) result (:struct sdl-color))
+      (setf r rr)
+      (setf g rg)
+      (setf b rb)
+      (setf a ra)
+      result)
+    result))
+
 ;; Declared in include/SDL_rect.h
 (defcstruct sdl-rect
   "SDL Rectangle structure."
@@ -181,9 +206,6 @@
   (y :int)
   (w :int)
   (h :int))
-
-(defcfun "SDL_Init" :int
-  (flags :long))
 
 (defun set-rect (result rx ry rw rh)
   (trivial-main-thread:with-body-in-main-thread (:blocking t)
@@ -195,13 +217,8 @@
       result)
     result))
 
-;; Declared in include/SDL_pixels.h
-(defcstruct (sdl-color :class sdl-color-type)
-  "SDL Color structure."
-  (r :uint8)
-  (g :uint8)
-  (b :uint8)
-  (a :uint8))
+(defcfun "SDL_Init" :int
+  (flags :long))
 
 (defmethod cffi:translate-into-foreign-memory ((value list) (type sdl-color-type) p)
   (with-foreign-slots ((r g b a) p (:struct sdl-color))

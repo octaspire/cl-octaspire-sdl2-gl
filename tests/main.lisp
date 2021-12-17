@@ -18,7 +18,7 @@
 ;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 (defpackage cl-octaspire-sdl2-gl/tests/main
-  (:use :cl :cl-octaspire-sdl2-gl :rove :bytecurry.mocks))
+  (:use :cl :cl-octaspire-sdl2-gl :cffi :trivial-main-thread :rove :bytecurry.mocks))
 (in-package :cl-octaspire-sdl2-gl/tests/main)
 
 
@@ -156,6 +156,72 @@
 (deftest test-constant-sdl-init-joystick
   (testing "Test constant +SDL-INIT-JOYSTICK+"
            (ok (= #x200 +SDL-INIT-JOYSTICK+))))
+
+(deftest test-constant-sdl-init-haptic
+  (testing "Test constant +SDL-INIT-HAPTIC+"
+           (ok (= #x1000 +SDL-INIT-HAPTIC+))))
+
+(deftest test-constant-sdl-init-gamecontroller
+  (testing "Test constant +SDL-INIT-GAMECONTROLLER+"
+           (ok (= #x2000 +SDL-INIT-GAMECONTROLLER+))))
+
+(deftest test-constant-sdl-init-events
+  (testing "Test constant +SDL-INIT-EVENTS+"
+           (ok (= #x4000 +SDL-INIT-EVENTS+))))
+
+(deftest test-constant-sdl-init-sensor
+  (testing "Test constant +SDL-INIT-SENSOR+"
+           (ok (= #x8000 +SDL-INIT-SENSOR+))))
+
+(deftest test-constant-sdl-init-noparachute
+  (testing "Test constant +SDL-INIT-NOPARACHUTE+"
+           (ok (= #x100000 +SDL-INIT-NOPARACHUTE+))))
+
+(deftest test-constant-sdl-init-everything
+  (testing "Test constant +SDL-INIT-EVERYTHING+"
+           (ok (= (logior +SDL-INIT-TIMER+
+                          +SDL-INIT-AUDIO+
+                          +SDL-INIT-VIDEO+
+                          +SDL-INIT-EVENTS+
+                          +SDL-INIT-JOYSTICK+
+                          +SDL-INIT-HAPTIC+
+                          +SDL-INIT-GAMECONTROLLER+
+                          +SDL-INIT-SENSOR+)
+                  +SDL-INIT-EVERYTHING+))))
+
+(deftest test-constant-sdl-texteditingevent-text-size
+  (testing "Test constant +SDL-TEXTEDITINGEVENT-TEXT-SIZE+"
+           (ok (= 32 +SDL-TEXTEDITINGEVENT-TEXT-SIZE+))))
+
+(deftest test-constant-sdl-textinputevent-text-size
+  (testing "Test constant +SDL-TEXTINPUTEVENT-TEXT-SIZE+"
+           (ok (= 32 +SDL-TEXTINPUTEVENT-TEXT-SIZE+))))
+
+
+;; Declared in include/SDL_pixels.h
+
+(deftest test-struct-sdl-color-and-set-color
+  (testing "Test struct SDL-COLOR and function SET-COLOR"
+           (with-foreign-objects ((color '(:struct sdl-color)))
+             (set-color color 1 2 3 4)
+             (with-foreign-slots ((r g b a) color (:struct sdl-color))
+               (ok (= 1 r))
+               (ok (= 2 g))
+               (ok (= 3 b))
+               (ok (= 4 a))))))
+
+
+;; Declared in include/SDL_rect.h
+
+(deftest test-struct-sdl-rect-and-set-rect
+  (testing "Test struct SDL-RECT and function SET-RECT"
+           (with-foreign-objects ((rect '(:struct sdl-rect)))
+             (set-rect rect 1 2 3 4)
+             (with-foreign-slots ((x y w h) rect (:struct sdl-rect))
+               (ok (= 1 x))
+               (ok (= 2 y))
+               (ok (= 3 w))
+               (ok (= 4 h))))))
 
 
 ;; SDL-INIT

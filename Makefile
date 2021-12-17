@@ -18,34 +18,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 LISP ?= sbcl
+DECLAIM_TEST ?= "(declaim (optimize (safety 3) (debug 3)))"
+DECLAIM_REPL ?= "(declaim (optimize (safety 3) (debug 3)))"
 
 .PHONY: test repl slynk swank demo help
 
 test:
-	@$(LISP) --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
+	@$(LISP) --eval $(DECLAIM_TEST)                              \
+                 --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
                  --eval "(uiop:quit (if (rove:run :cl-octaspire-sdl2-gl/tests :style :dot) 0 1))"
 
 repl:
-	@$(LISP) --eval "(ql:quickload :cl-octaspire-sdl2-gl)"       \
+	@$(LISP) --eval $(DECLAIM_REPL)                              \
+                 --eval "(ql:quickload :cl-octaspire-sdl2-gl)"       \
                  --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
                  --eval "(in-package :cl-octaspire-sdl2-gl)"
 
 slynk:
-	@$(LISP) --eval "(ql:quickload :slynk)"                      \
+	@$(LISP) --eval $(DECLAIM_REPL)                              \
+                 --eval "(ql:quickload :slynk)"                      \
                  --eval "(ql:quickload :cl-octaspire-sdl2-gl)"       \
                  --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
                  --eval "(slynk:create-server :dont-close t)"        \
                  --eval "(in-package :cl-octaspire-sdl2-gl)"
 
 swank:
-	@$(LISP) --eval "(ql:quickload :swank)"                      \
+	@$(LISP) --eval $(DECLAIM_REPL)                              \
+                 --eval "(ql:quickload :swank)"                      \
                  --eval "(ql:quickload :cl-octaspire-sdl2-gl)"       \
                  --eval "(ql:quickload :cl-octaspire-sdl2-gl/tests)" \
                  --eval "(swank:create-server :dont-close t)"        \
                  --eval "(in-package :cl-octaspire-sdl2-gl)"
 
 demo:
-	@$(LISP) --quit --load documentation/examples/with-window.lisp
+	@$(LISP) --eval $(DECLAIM_REPL)                              \
+                 --quit --load documentation/examples/with-window.lisp
 
 help:
 	@echo ""
