@@ -65,9 +65,13 @@
            ;; Declared in include/SDL_rect.h
            :sdl-rect :x :y :w :h
            :set-rect
+           ;; Initialization
            :sdl-init
            :with-init
-           :sdl-quit))
+           ;; Declared in include/SDL.h
+           :sdl-quit
+           ;; Declared in include/SDL_events.h
+           :sdl-eventtype))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -181,7 +185,9 @@
 (defconstant +SDL-TEXTEDITINGEVENT-TEXT-SIZE+ 32)
 (defconstant +SDL-TEXTINPUTEVENT-TEXT-SIZE+   32)
 
+
 ;; Declared in include/SDL_pixels.h
+
 (defcstruct (sdl-color :class sdl-color-type)
   "SDL Color structure."
   (r :uint8)
@@ -199,7 +205,9 @@
       result)
     result))
 
+
 ;; Declared in include/SDL_rect.h
+
 (defcstruct sdl-rect
   "SDL Rectangle structure."
   (x :int)
@@ -217,21 +225,28 @@
       result)
     result))
 
+
+;; Initialization
+
 (defcfun "SDL_Init" :int
   (flags :long))
 
-(defmethod cffi:translate-into-foreign-memory ((value list) (type sdl-color-type) p)
-  (with-foreign-slots ((r g b a) p (:struct sdl-color))
-    (setf r (nth 0 value))
-    (setf g (nth 1 value))
-    (setf b (nth 2 value))
-    (setf a (nth 3 value))))
+(defmacro with-init ((&rest flags) &body body)
+  `(progn
+     (unless (sdl-init ,@flags)
+       (error "SDL Init failed"))
+     (unwind-protect
+         ,@body
+       (sdl-quit))))
 
-(defmethod cffi:translate-from-foreign (p (type sdl-color-type))
-  (with-foreign-slots ((r g b a) p (:struct sdl-color))
-    (list r g b a)))
+
+;; Declared in include/SDL.h
 
+(defcfun "SDL_Quit" :void)
+
+
 ;; Declared in include/SDL_events.h
+
 (defcenum sdl-eventtype
   "Types of events."
   (:SDL-FIRSTEVENT        0)
@@ -1608,17 +1623,6 @@
 (defcfun "SDL_PollEvent" :int
   (event :pointer))
 
-;; Declared in include/SDL.h
-(defcfun "SDL_Quit" :void)
-
-(defmacro with-init ((&rest flags) &body body)
-  `(progn
-     (unless (sdl-init ,@flags)
-       (error "SDL Init failed"))
-     (unwind-protect
-          ,@body
-       (sdl-quit))))
-
 ;; Defined in src/video/SDL_fillrect.c
 (defcfun "SDL_FillRect" :int
   (dst   :pointer)
@@ -1884,3 +1888,18 @@ according to NAME to the forms in BODY."
                              ,img)))
               ,@body)
          (sdl-destroytexture ,name)))))
+
+
+;; Private functions and methods
+
+(defmethod cffi:translate-into-foreign-memory ((value list) (type sdl-color-type) p)
+  (with-foreign-slots ((r g b a) p (:struct sdl-color))
+                      (setf r (nth 0 value))
+                      (setf g (nth 1 value))
+                      (setf b (nth 2 value))
+                      (setf a (nth 3 value))))
+
+(defmethod cffi:translate-from-foreign (p (type sdl-color-type))
+  (with-foreign-slots ((r g b a) p (:struct sdl-color))
+                      (list r g b a)))
+

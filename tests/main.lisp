@@ -348,3 +348,49 @@
            (let ((retval 128))
              (ok (= retval (with-init (+SDL-INIT-EVERYTHING+)
                                       retval))))))
+
+
+;; Declared in include/SDL.h
+
+(deftest test-sdl-quit
+  (testing "Calling SDL-QUIT after init works."
+           (let ((retval (sdl-init +SDL-INIT-TIMER+)))
+             (sdl-quit)
+             (ok (= 0 retval)))))
+
+
+;; Declared in include/SDL_events.h
+
+(deftest test-cenum-sdl-eventtype-firstevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-FIRSTEVENT."
+           (ok (= 0 (foreign-enum-value 'sdl-eventtype :SDL-FIRSTEVENT)))))
+
+;; Application
+
+(deftest test-cenum-sdl-eventtype-quit
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-QUIT."
+           (ok (= #x100 (foreign-enum-value 'sdl-eventtype :SDL-QUIT)))))
+
+(deftest test-cenum-sdl-eventtype-app-terminating
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-TERMINATING."
+           (ok (= #x101 (foreign-enum-value 'sdl-eventtype :SDL-APP-TERMINATING)))))
+
+(deftest test-cenum-sdl-eventtype-app-lowmemory
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-LOWMEMORY."
+           (ok (= #x102 (foreign-enum-value 'sdl-eventtype :SDL-APP-LOWMEMORY)))))
+
+(deftest test-cenum-sdl-eventtype-app-willenterbackground
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-WILLENTERBACKGROUND."
+           (ok (= #x103 (foreign-enum-value 'sdl-eventtype :SDL-APP-WILLENTERBACKGROUND)))))
+
+(deftest test-cenum-sdl-eventtype-app-didenterbackground
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-DIDENTERBACKGROUND."
+           (ok (= #x104 (foreign-enum-value 'sdl-eventtype :SDL-APP-DIDENTERBACKGROUND)))))
+
+(deftest test-cenum-sdl-eventtype-app-willenterforeground
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-WILLENTERFOREGROUND."
+           (ok (= #x105 (foreign-enum-value 'sdl-eventtype :SDL-APP-WILLENTERFOREGROUND)))))
+
+(deftest test-cenum-sdl-eventtype-app-didenterforeground
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-DIDENTERFOREGROUND."
+           (ok (= #x106 (foreign-enum-value 'sdl-eventtype :SDL-APP-DIDENTERFOREGROUND)))))
