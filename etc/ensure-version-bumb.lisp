@@ -22,7 +22,7 @@
 ;; `.git/hooks/pre-push` file with two lines:
 ;;
 ;; #!/bin/sh
-;; sbcl --load ../../etc/ensure-version-bumb.lisp
+;; sbcl --load etc/ensure-version-bumb.lisp
 ;;
 ;; This makes sure, that the version number is not the same as on
 ;; the previous push. It could be improved by actually comparing
