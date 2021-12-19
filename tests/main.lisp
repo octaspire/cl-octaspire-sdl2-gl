@@ -1,3 +1,4 @@
+;; -*- compile-command: "cd .. && make test && cd -"; -*-
 ;; Copyright (c) 2020, 2021 octaspire.com
 ;;
 ;; Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -394,3 +395,23 @@
 (deftest test-cenum-sdl-eventtype-app-didenterforeground
   (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-DIDENTERFOREGROUND."
            (ok (= #x106 (foreign-enum-value 'sdl-eventtype :SDL-APP-DIDENTERFOREGROUND)))))
+
+(deftest test-cenum-sdl-eventtype-app-localechanged
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-APP-LOCALECHANGED."
+           (ok (= #x107 (foreign-enum-value 'sdl-eventtype :SDL-APP-LOCALECHANGED)))))
+
+;; Display
+
+(deftest test-cenum-sdl-eventtype-displayevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DISPLAYEVENT."
+           (ok (= #x150 (foreign-enum-value 'sdl-eventtype :SDL-DISPLAYEVENT)))))
+
+;; Window
+
+(deftest test-cenum-sdl-eventtype-windowevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-WINDOWEVENT"
+           (ok (= #x200 (foreign-enum-value 'sdl-eventtype :SDL-WINDOWEVENT)))))
+
+(deftest test-cenum-sdl-eventtype-syswmevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-SYSWMEVENT"
+           (ok (= #x201 (foreign-enum-value 'sdl-eventtype :SDL-SYSWMEVENT)))))

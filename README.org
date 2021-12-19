@@ -59,6 +59,9 @@ Or give the following command on the terminal:
 make test
 #+end_src
 
+Also, if the =tests/main.lisp= buffer is open on GNU Emacs,
+you can run the tests with ~M-x recompile~.
+
 ** License
 
 Licensed under the MIT License:
