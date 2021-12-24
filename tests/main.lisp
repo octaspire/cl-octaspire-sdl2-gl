@@ -415,3 +415,88 @@
 (deftest test-cenum-sdl-eventtype-syswmevent
   (testing "Test cenum SDL-EVENTTYPE with value :SDL-SYSWMEVENT"
            (ok (= #x201 (foreign-enum-value 'sdl-eventtype :SDL-SYSWMEVENT)))))
+
+;; Keyboard
+
+(deftest test-cenum-sdl-eventtype-keydown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-KEYDOWN"
+           (ok (= #x300 (foreign-enum-value 'sdl-eventtype :SDL-KEYDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-keyup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-KEYUP"
+           (ok (= #x301 (foreign-enum-value 'sdl-eventtype :SDL-KEYUP)))))
+
+(deftest test-cenum-sdl-eventtype-textediting
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-TEXTEDITING"
+           (ok (= #x302 (foreign-enum-value 'sdl-eventtype :SDL-TEXTEDITING)))))
+
+(deftest test-cenum-sdl-eventtype-textinput
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-TEXTINPUT"
+           (ok (= #x303 (foreign-enum-value 'sdl-eventtype :SDL-TEXTINPUT)))))
+
+(deftest test-cenum-sdl-eventtype-keymapchanged
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-KEYMAPCHANGED"
+           (ok (= #x304 (foreign-enum-value 'sdl-eventtype :SDL-KEYMAPCHANGED)))))
+
+;; Mouse
+
+(deftest test-cenum-sdl-eventtype-mousemotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-MOUSEMOTION"
+           (ok (= #x400 (foreign-enum-value 'sdl-eventtype :SDL-MOUSEMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-mousebuttondown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-MOUSEBUTTONDOWN"
+           (ok (= #x401 (foreign-enum-value 'sdl-eventtype :SDL-MOUSEBUTTONDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-mousebuttonup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-MOUSEBUTTONUP"
+           (ok (= #x402 (foreign-enum-value 'sdl-eventtype :SDL-MOUSEBUTTONUP)))))
+
+(deftest test-cenum-sdl-eventtype-mousewheel
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-MOUSEWHEEL"
+           (ok (= #x403 (foreign-enum-value 'sdl-eventtype :SDL-MOUSEWHEEL)))))
+
+;; Joystick
+
+(deftest test-cenum-sdl-eventtype-joyaxismotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYAXISMOTION"
+           (ok (= #x600 (foreign-enum-value 'sdl-eventtype :SDL-JOYAXISMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-joyballmotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYBALLMOTION"
+           (ok (= #x601 (foreign-enum-value 'sdl-eventtype :SDL-JOYBALLMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-joyhatmotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYHATMOTION"
+           (ok (= #x602 (foreign-enum-value 'sdl-eventtype :SDL-JOYHATMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-joybuttondown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYBUTTONDOWN"
+           (ok (= #x603 (foreign-enum-value 'sdl-eventtype :SDL-JOYBUTTONDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-joybuttonup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYBUTTONUP"
+           (ok (= #x604 (foreign-enum-value 'sdl-eventtype :SDL-JOYBUTTONUP)))))
+
+(deftest test-cenum-sdl-eventtype-joydeviceadded
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYDEVICEADDED"
+           (ok (= #x605 (foreign-enum-value 'sdl-eventtype :SDL-JOYDEVICEADDED)))))
+
+(deftest test-cenum-sdl-eventtype-joydeviceremoved
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-JOYDEVICEREMOVED"
+           (ok (= #x606 (foreign-enum-value 'sdl-eventtype :SDL-JOYDEVICEREMOVED)))))
+
+;; Game controller
+
+(deftest test-cenum-sdl-eventtype-controlleraxismotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERAXISMOTION"
+           (ok (= #x650 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERAXISMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-controllerbuttondown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERBUTTONDOWN"
+           (ok (= #x651 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERBUTTONDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-controllerbuttonup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERBUTTONUP"
+           (ok (= #x652 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERBUTTONUP)))))
+
