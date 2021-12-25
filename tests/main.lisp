@@ -500,3 +500,121 @@
   (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERBUTTONUP"
            (ok (= #x652 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERBUTTONUP)))))
 
+(deftest test-cenum-sdl-eventtype-controllerdeviceadded
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERDEVICEADDED"
+           (ok (= #x653 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERDEVICEADDED)))))
+
+(deftest test-cenum-sdl-eventtype-controllerdeviceremoved
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERDEVICEREMOVED"
+           (ok (= #x654 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERDEVICEREMOVED)))))
+
+(deftest test-cenum-sdl-eventtype-controllerdeviceremapped
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERDEVICEREMAPPED"
+           (ok (= #x655 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERDEVICEREMAPPED)))))
+
+(deftest test-cenum-sdl-eventtype-controllertouchpaddown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERTOUCHPADDOWN"
+           (ok (= #x656 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERTOUCHPADDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-controllertouchpadmotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERTOUCHPADMOTION"
+           (ok (= #x657 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERTOUCHPADMOTION)))))
+
+(deftest test-cenum-sdl-eventtype-controllertouchpadup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERTOUCHPADUP"
+           (ok (= #x658 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERTOUCHPADUP)))))
+
+(deftest test-cenum-sdl-eventtype-controllersensorupdate
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CONTROLLERSENSORUPDATE"
+           (ok (= #x659 (foreign-enum-value 'sdl-eventtype :SDL-CONTROLLERSENSORUPDATE)))))
+
+;; Touch
+
+(deftest test-cenum-sdl-eventtype-fingerdown
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-FINGERDOWN"
+           (ok (= #x700 (foreign-enum-value 'sdl-eventtype :SDL-FINGERDOWN)))))
+
+(deftest test-cenum-sdl-eventtype-fingerup
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-FINGERUP"
+           (ok (= #x701 (foreign-enum-value 'sdl-eventtype :SDL-FINGERUP)))))
+
+(deftest test-cenum-sdl-eventtype-fingermotion
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-FINGERMOTION"
+           (ok (= #x702 (foreign-enum-value 'sdl-eventtype :SDL-FINGERMOTION)))))
+
+;; Gesture
+
+(deftest test-cenum-sdl-eventtype-dollargesture
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DOLLARGESTURE"
+           (ok (= #x800 (foreign-enum-value 'sdl-eventtype :SDL-DOLLARGESTURE)))))
+
+(deftest test-cenum-sdl-eventtype-dollardrecord
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DOLLARDRECORD"
+           (ok (= #x801 (foreign-enum-value 'sdl-eventtype :SDL-DOLLARDRECORD)))))
+
+(deftest test-cenum-sdl-eventtype-multigesture
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-MULTIGESTURE"
+           (ok (= #x802 (foreign-enum-value 'sdl-eventtype :SDL-MULTIGESTURE)))))
+
+;; Clipboard
+
+(deftest test-cenum-sdl-eventtype-clipboardupdate
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-CLIPBOARDUPDATE"
+           (ok (= #x900 (foreign-enum-value 'sdl-eventtype :SDL-CLIPBOARDUPDATE)))))
+
+;; Drag and Drop
+
+(deftest test-cenum-sdl-eventtype-dropfile
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DROPFILE"
+           (ok (= #x1000 (foreign-enum-value 'sdl-eventtype :SDL-DROPFILE)))))
+
+(deftest test-cenum-sdl-eventtype-droptext
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DROPTEXT"
+           (ok (= #x1001 (foreign-enum-value 'sdl-eventtype :SDL-DROPTEXT)))))
+
+(deftest test-cenum-sdl-eventtype-dropbegin
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DROPBEGIN"
+           (ok (= #x1002 (foreign-enum-value 'sdl-eventtype :SDL-DROPBEGIN)))))
+
+(deftest test-cenum-sdl-eventtype-dropcomplete
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-DROPCOMPLETE"
+           (ok (= #x1003 (foreign-enum-value 'sdl-eventtype :SDL-DROPCOMPLETE)))))
+
+;; Audio hotplug
+
+(deftest test-cenum-sdl-eventtype-audiodeviceadded
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-AUDIODEVICEADDED"
+           (ok (= #x1100 (foreign-enum-value 'sdl-eventtype :SDL-AUDIODEVICEADDED)))))
+
+(deftest test-cenum-sdl-eventtype-audiodeviceremoved
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-AUDIODEVICEREMOVED"
+           (ok (= #x1101 (foreign-enum-value 'sdl-eventtype :SDL-AUDIODEVICEREMOVED)))))
+
+;; Sensor
+
+(deftest test-cenum-sdl-eventtype-sensorupdate
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-SENSORUPDATE"
+           (ok (= #x1200 (foreign-enum-value 'sdl-eventtype :SDL-SENSORUPDATE)))))
+
+;; Render
+
+(deftest test-cenum-sdl-eventtype-render-targets-reset
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-RENDER-TARGETS-RESET"
+           (ok (= #x2000 (foreign-enum-value 'sdl-eventtype :SDL-RENDER-TARGETS-RESET)))))
+
+(deftest test-cenum-sdl-eventtype-render-device-reset
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-RENDER-DEVICE-RESET"
+           (ok (= #x2001 (foreign-enum-value 'sdl-eventtype :SDL-RENDER-DEVICE-RESET)))))
+
+;; User
+
+(deftest test-cenum-sdl-eventtype-userevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-USEREVENT"
+           (ok (= #x8000 (foreign-enum-value 'sdl-eventtype :SDL-USEREVENT)))))
+
+;; Last event
+
+(deftest test-cenum-sdl-eventtype-lastevent
+  (testing "Test cenum SDL-EVENTTYPE with value :SDL-LASTEVENT"
+           (ok (= #xFFFF (foreign-enum-value 'sdl-eventtype :SDL-LASTEVENT)))))
+
