@@ -8,7 +8,7 @@ Common Lisp.
 
 ** Installation
 
-Clone into directory known to [[quicklisp.org][Quicklisp]]:
+Clone into directory known to [[https://www.quicklisp.org][Quicklisp]]:
 
 #+begin_src shell
 cd $HOME/quicklisp/local-projects
