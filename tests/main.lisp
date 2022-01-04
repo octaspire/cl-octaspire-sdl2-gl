@@ -22,6 +22,9 @@
   (:use :cl :cl-octaspire-sdl2-gl :cffi :trivial-main-thread :rove :bytecurry.mocks))
 (in-package :cl-octaspire-sdl2-gl/tests/main)
 
+(defconstant +MIN-INT32-VALUE+ -2147483648)
+(defconstant +MAX-INT32-VALUE+  2147483647)
+
 
 ;; Constants declared in include/SDL_render.h
 
@@ -617,4 +620,62 @@
 (deftest test-cenum-sdl-eventtype-lastevent
   (testing "Test cenum SDL-EVENTTYPE with value :SDL-LASTEVENT"
            (ok (= #xFFFF (foreign-enum-value 'sdl-eventtype :SDL-LASTEVENT)))))
+
+
+;; Declared in include/SDL_scancode.h
+
+(deftest test-cenum-sdl-scancode-unknown
+  (testing "Test cenum SDL-scancode with value :SDL-SCANCODE-UNKNOWN."
+           (ok (= 0 (foreign-enum-value 'sdl-scancode :SDL-SCANCODE-UNKNOWN)))))
+
+;; Usage page 0x07 (USB keyboard page).
+
+(deftest test-cenum-sdl-scancode-a
+  (testing "Test cenum SDL-scancode with value :SDL-SCANCODE-A."
+           (ok (= 4 (foreign-enum-value 'sdl-scancode :SDL-SCANCODE-A)))))
+
+(deftest test-cenum-sdl-scancode-b
+  (testing "Test cenum SDL-scancode with value :SDL-SCANCODE-B"
+    (ok (= 5 (foreign-enum-value 'sdl-scancode :SDL-SCANCODE-B)))))
+
+(deftest test-cenum-sdl-scancode-c
+  (testing "Test cenum SDL-scancode with value :SDL-SCANCODE-C"
+    (ok (= 6 (foreign-enum-value 'sdl-scancode :SDL-SCANCODE-C)))))
+
+(deftest test-cenum-sdl-scancode-d
+  (testing "Test cenum SDL-scancode with value :SDL-SCANCODE-D"
+    (ok (= 7 (foreign-enum-value 'sdl-scancode :SDL-SCANCODE-D)))))
+
+;; TODO Scancodes 8 - 286 skipped at the moment.
+
+(deftest test-cenum-sdl-num-scancodes
+  (testing "Test cenum SDL-scancode with value :SDL-NUM-SCANCODES"
+    (ok (= 512 (foreign-enum-value 'sdl-scancode :SDL-NUM-SCANCODES)))))
+
+
+;; Declared in include/SDL_keycode.h
+
+(deftest test-ctype-sdl-keycode-with-min-int32-value
+  (testing "Test ctype SDL-KEYCODE with smallest possible int32 value"
+    (let ((value +MIN-INT32-VALUE+))
+      (with-foreign-objects ((keycode 'sdl-keycode))
+        (setf keycode value)
+        (ok (= value keycode))))))
+
+(deftest test-ctype-sdl-keycode-with-zero
+  (testing "Test ctype SDL-KEYCODE with value zero"
+    (let ((value 0))
+      (with-foreign-objects ((keycode 'sdl-keycode))
+        (setf keycode value)
+        (ok (= value keycode))))))
+
+(deftest test-ctype-sdl-keycode-with-max-int32-value
+  (testing "Test ctype SDL-KEYCODE with largest possible int32 value"
+    (let ((value +MAX-INT32-VALUE+))
+      (with-foreign-objects ((keycode 'sdl-keycode))
+        (setf keycode value)
+        (ok (= value keycode))))))
+
+
+;; Declared in include/SDL_keyboard.h
 

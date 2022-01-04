@@ -71,7 +71,13 @@
            ;; Declared in include/SDL.h
            :sdl-quit
            ;; Declared in include/SDL_events.h
-           :sdl-eventtype))
+           :sdl-eventtype
+           ;; Declared in include/SDL_scancode.h
+           :sdl-scancode
+           ;; Declared in include/SDL_keycode.h
+           :sdl-keycode
+           ;; Declared in include/SDL_keyboard.h
+           ))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -322,7 +328,9 @@
   ;; Last event
   (:SDL-LASTEVENT #xFFFF))
 
+
 ;; Declared in include/SDL_scancode.h
+
 (defcenum sdl-scancode
   "SDL keyboard scancode enumeration."
   (:SDL-SCANCODE-UNKNOWN 0)
@@ -588,13 +596,16 @@
   (:SDL-SCANCODE-AUDIOREWIND)           ; 285
   (:SDL-SCANCODE-AUDIOFASTFORWARD)      ; 286
 
-  (:SDL-NUM-SCANCODES 512)              ; 512, for array bounds.
-  )
+  (:SDL-NUM-SCANCODES 512))             ; 512, for array bounds.
 
+
 ;; Declared in include/SDL_keycode.h
+
 (defctype sdl-keycode :int32)
 
+
 ;; Declared in include/SDL_keyboard.h
+
 (defcstruct sdl-keysym
   "Used in key events."
   (scancode sdl-scancode)
