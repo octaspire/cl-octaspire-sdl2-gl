@@ -77,6 +77,9 @@
            ;; Declared in include/SDL_keycode.h
            :sdl-keycode
            ;; Declared in include/SDL_keyboard.h
+           :sdl-keysym :scancode :sym :mod
+           :set-keysym
+           :format-sdl-keysym
            ))
 (in-package :cl-octaspire-sdl2-gl)
 
@@ -204,10 +207,10 @@
 (defun set-color (result rr rg rb ra)
   (trivial-main-thread:with-body-in-main-thread (:blocking t)
     (with-foreign-slots ((r g b a) result (:struct sdl-color))
-      (setf r rr)
-      (setf g rg)
-      (setf b rb)
-      (setf a ra)
+      (setf r rr
+            g rg
+            b rb
+            a ra)
       result)
     result))
 
@@ -613,6 +616,26 @@
   (mod      :uint16)
   (unused   :uint32))
 
+(defun set-keysym (result sc sy mo)
+  (trivial-main-thread:with-body-in-main-thread (:blocking t)
+    (with-foreign-slots ((scancode sym mod) result (:struct sdl-keysym))
+      (setf scancode (foreign-enum-value 'sdl-scancode sc)
+            sym      sy
+            mod      mo)
+      result)
+    result))
+
+;; Maybe all FORMAT-SDL-* using PRINT-OBJECT
+(defun format-sdl-keysym (keysym)
+  (trivial-main-thread:with-body-in-main-thread
+   (:blocking t)
+   (with-foreign-slots ((scancode sym mod) keysym (:struct sdl-keysym))
+                       (format nil
+                               "scancode=~A sym=~A mod=~A"
+                               (symbol-name scancode)
+                               sym
+                               mod))))
+
 ;; Declared in include/SDL_events.h
 (defcstruct sdl-commonevent
   "Fields shared by all events."
@@ -944,14 +967,6 @@
   (dgesture  (:struct sdl-dollargestureevent))
   (drop      (:struct sdl-dropevent))
   (padding   :uint8 :count 56))
-
-;; Maybe all FORMAT-SDL-* using PRINT-OBJECT
-(defun format-sdl-keysym (keysym)
-  (format nil
-          "scancode=~A sym=~A mod=~A"
-          (getf keysym 'scancode)
-          (getf keysym 'sym)
-          (getf keysym 'mod)))
 
 (defun format-sdl-commonevent (event name)
   (with-foreign-slots ((type timestamp) event (:struct sdl-commonevent))

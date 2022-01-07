@@ -679,3 +679,18 @@
 
 ;; Declared in include/SDL_keyboard.h
 
+(deftest test-struct-sdl-keysym
+  (testing "Test struct SDL-KEYSYM and function SET-KEYSYM"
+           (with-foreign-objects ((keysym '(:struct sdl-keysym)))
+             (set-keysym keysym :SDL-SCANCODE-UNKNOWN 1 2)
+             (with-foreign-slots ((scancode sym mod) keysym (:struct sdl-keysym))
+               (ok (= 0 (foreign-enum-value 'sdl-scancode scancode)))
+               (ok (= 1 sym))
+               (ok (= 2 mod))))))
+
+(deftest test-format-sdl-keysym
+  (testing "Test function FORMAT-SDL-KEYSYM"
+           (with-foreign-objects ((keysym '(:struct sdl-keysym)))
+             (set-keysym keysym :SDL-SCANCODE-UNKNOWN 1 2)
+             (ok (string= "scancode=SDL-SCANCODE-UNKNOWN sym=1 mod=2"
+                          (format-sdl-keysym keysym))))))
