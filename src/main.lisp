@@ -80,7 +80,11 @@
            :sdl-keysym :scancode :sym :mod
            :set-keysym
            :format-sdl-keysym
-           ))
+           ;; Declared in include/SDL_events.h
+           :sdl-commonevent :type :timestamp
+           :set-commonevent
+           :sdl-displayevent :type :timestamp :display :event :data1
+           :set-displayevent))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -636,11 +640,21 @@
                                sym
                                mod))))
 
+
 ;; Declared in include/SDL_events.h
+
 (defcstruct sdl-commonevent
   "Fields shared by all events."
   (type      :uint32)
   (timestamp :uint32))
+
+(defun set-commonevent (result typ stamp)
+  (trivial-main-thread:with-body-in-main-thread (:blocking t)
+    (with-foreign-slots ((type timestamp) result (:struct sdl-commonevent))
+      (setf type      typ
+            timestamp stamp)
+      result)
+    result))
 
 (defcstruct sdl-displayevent
   "Display state change event (event.display)."
@@ -652,6 +666,17 @@
   (padding2  :uint8)
   (padding3  :uint8)
   (data1     :int32))
+
+(defun set-displayevent (result typ stamp disp evt dat1)
+  (trivial-main-thread:with-body-in-main-thread (:blocking t)
+    (with-foreign-slots ((type timestamp display event data1) result (:struct sdl-displayevent))
+      (setf type      typ
+            timestamp stamp
+            display   disp
+            event     evt
+            data1     dat1)
+      result)
+    result))
 
 (defcstruct sdl-windowevent
   "Window state change event (event.window)."

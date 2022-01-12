@@ -694,3 +694,27 @@
              (set-keysym keysym :SDL-SCANCODE-UNKNOWN 1 2)
              (ok (string= "scancode=SDL-SCANCODE-UNKNOWN sym=1 mod=2"
                           (format-sdl-keysym keysym))))))
+
+
+
+;; Declared in include/SDL_events.h
+
+(deftest test-struct-sdl-commonevent
+  (testing "Test struct SDL-COMMONEVENT and function SET-COMMONEVENT"
+           (with-foreign-objects ((event '(:struct sdl-commonevent)))
+             (set-commonevent event 1000 2000)
+             (with-foreign-slots ((type timestamp) event (:struct sdl-commonevent))
+               (ok (= 1000 type))
+               (ok (= 2000 timestamp))))))
+
+(deftest test-struct-sdl-displayevent
+  (testing "Test struct SDL-DISPLAYEVENT and function SET-DISPLAYEVENT"
+           (with-foreign-objects ((event '(:struct sdl-displayevent)))
+             (set-displayevent event 1000 2000 3000 32 4000)
+             (with-foreign-slots ((type timestamp display event data1) event (:struct sdl-displayevent))
+               (ok (= 1000 type))
+               (ok (= 2000 timestamp))
+               (ok (= 3000 display))
+               (ok (= 32   event))
+               (ok (= 4000 data1))))))
+
