@@ -20,71 +20,71 @@
 (defpackage cl-octaspire-sdl2-gl
   (:use :cl :cffi :trivial-main-thread)
   (:export ;; Constants declared in include/SDL_render.h
-           :+SDL-RENDERER-SOFTWARE+
-           :+SDL-RENDERER-ACCELERATED+
-           :+SDL-RENDERER-PRESENTVSYNC+
-           :+SDL-RENDERER-TARGETTEXTURE+
-           ;; Constants declared in include/SDL_audio.h
-           :+AUDIO-U8+
-           :+AUDIO-S8+
-           :+AUDIO-U16LSB+
-           :+AUDIO-S16LSB+
-           :+AUDIO-U16MSB+
-           :+AUDIO-S16MSB+
-           :+AUDIO-U16+
-           :+AUDIO-S16+
-           :+AUDIO-S32LSB+
-           :+AUDIO-S32MSB+
-           :+AUDIO-S32+
-           :+AUDIO-F32LSB+
-           :+AUDIO-F32MSB+
-           :+AUDIO-F32+
-           :+AUDIO-U16SYS+
-           :+AUDIO-S16SYS+
-           :+AUDIO-S32SYS+
-           :+AUDIO-F32SYS+
-           ;; Constants declared in include/SDL_stdinc.h
-           :+SDL-FALSE+
-           :+SDL-TRUE+
-           ;; Constants declared in include/SDL.h
-           :+SDL-INIT-TIMER+
-           :+SDL-INIT-AUDIO+
-           :+SDL-INIT-VIDEO+
-           :+SDL-INIT-JOYSTICK+
-           :+SDL-INIT-HAPTIC+
-           :+SDL-INIT-GAMECONTROLLER+
-           :+SDL-INIT-EVENTS+
-           :+SDL-INIT-SENSOR+
-           :+SDL-INIT-NOPARACHUTE+
-           :+SDL-INIT-EVERYTHING+
-           :+SDL-TEXTEDITINGEVENT-TEXT-SIZE+
-           :+SDL-TEXTINPUTEVENT-TEXT-SIZE+
-           ;; Declared in include/SDL_pixels.h
-           :sdl-color :r :g :b :a
-           :set-color
-           ;; Declared in include/SDL_rect.h
-           :sdl-rect :x :y :w :h
-           :set-rect
-           ;; Initialization
-           :sdl-init
-           :with-init
-           ;; Declared in include/SDL.h
-           :sdl-quit
-           ;; Declared in include/SDL_events.h
-           :sdl-eventtype
-           ;; Declared in include/SDL_scancode.h
-           :sdl-scancode
-           ;; Declared in include/SDL_keycode.h
-           :sdl-keycode
-           ;; Declared in include/SDL_keyboard.h
-           :sdl-keysym :scancode :sym :mod
-           :set-keysym
-           :format-sdl-keysym
-           ;; Declared in include/SDL_events.h
-           :sdl-commonevent :type :timestamp
-           :set-commonevent
-           :sdl-displayevent :type :timestamp :display :event :data1
-           :set-displayevent))
+   :+SDL-RENDERER-SOFTWARE+
+   :+SDL-RENDERER-ACCELERATED+
+   :+SDL-RENDERER-PRESENTVSYNC+
+   :+SDL-RENDERER-TARGETTEXTURE+
+   ;; Constants declared in include/SDL_audio.h
+   :+AUDIO-U8+
+   :+AUDIO-S8+
+   :+AUDIO-U16LSB+
+   :+AUDIO-S16LSB+
+   :+AUDIO-U16MSB+
+   :+AUDIO-S16MSB+
+   :+AUDIO-U16+
+   :+AUDIO-S16+
+   :+AUDIO-S32LSB+
+   :+AUDIO-S32MSB+
+   :+AUDIO-S32+
+   :+AUDIO-F32LSB+
+   :+AUDIO-F32MSB+
+   :+AUDIO-F32+
+   :+AUDIO-U16SYS+
+   :+AUDIO-S16SYS+
+   :+AUDIO-S32SYS+
+   :+AUDIO-F32SYS+
+   ;; Constants declared in include/SDL_stdinc.h
+   :+SDL-FALSE+
+   :+SDL-TRUE+
+   ;; Constants declared in include/SDL.h
+   :+SDL-INIT-TIMER+
+   :+SDL-INIT-AUDIO+
+   :+SDL-INIT-VIDEO+
+   :+SDL-INIT-JOYSTICK+
+   :+SDL-INIT-HAPTIC+
+   :+SDL-INIT-GAMECONTROLLER+
+   :+SDL-INIT-EVENTS+
+   :+SDL-INIT-SENSOR+
+   :+SDL-INIT-NOPARACHUTE+
+   :+SDL-INIT-EVERYTHING+
+   :+SDL-TEXTEDITINGEVENT-TEXT-SIZE+
+   :+SDL-TEXTINPUTEVENT-TEXT-SIZE+
+   ;; Declared in include/SDL_pixels.h
+   :sdl-color :r :g :b :a
+   :set-color
+   ;; Declared in include/SDL_rect.h
+   :sdl-rect :x :y :w :h
+   :set-rect
+   ;; Initialization
+   :sdl-init
+   :with-init
+   ;; Declared in include/SDL.h
+   :sdl-quit
+   ;; Declared in include/SDL_events.h
+   :sdl-eventtype
+   ;; Declared in include/SDL_scancode.h
+   :sdl-scancode
+   ;; Declared in include/SDL_keycode.h
+   :sdl-keycode
+   ;; Declared in include/SDL_keyboard.h
+   :sdl-keysym :scancode :sym :mod
+   :set-keysym
+   :format-sdl-keysym
+   ;; Declared in include/SDL_events.h
+   :sdl-commonevent :type :timestamp
+   :set-commonevent
+   :sdl-displayevent :type :timestamp :display :event :data1
+   :set-displayevent))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -1945,12 +1945,12 @@ according to NAME to the forms in BODY."
 
 (defmethod cffi:translate-into-foreign-memory ((value list) (type sdl-color-type) p)
   (with-foreign-slots ((r g b a) p (:struct sdl-color))
-                      (setf r (nth 0 value))
-                      (setf g (nth 1 value))
-                      (setf b (nth 2 value))
-                      (setf a (nth 3 value))))
+    (setf r (nth 0 value))
+    (setf g (nth 1 value))
+    (setf b (nth 2 value))
+    (setf a (nth 3 value))))
 
 (defmethod cffi:translate-from-foreign (p (type sdl-color-type))
   (with-foreign-slots ((r g b a) p (:struct sdl-color))
-                      (list r g b a)))
+    (list r g b a)))
 
