@@ -82,9 +82,14 @@
    :format-sdl-keysym
    ;; Declared in include/SDL_events.h
    :sdl-commonevent :type :timestamp
-   :set-commonevent
+   :set-sdl-commonevent
+   :format-sdl-commonevent
    :sdl-displayevent :type :timestamp :display :event :data1
-   :set-displayevent))
+   :set-sdl-displayevent
+   :format-sdl-displayevent
+   :sdl-windowevent :type :timestamp :windowID :event :data1 :data2
+   :set-sdl-windowevent
+   :format-sdl-windowevent))
 (in-package :cl-octaspire-sdl2-gl)
 
 #+sbcl
@@ -648,13 +653,21 @@
   (type      :uint32)
   (timestamp :uint32))
 
-(defun set-commonevent (result typ stamp)
+(defun set-sdl-commonevent (result typ stamp)
   (trivial-main-thread:with-body-in-main-thread (:blocking t)
     (with-foreign-slots ((type timestamp) result (:struct sdl-commonevent))
       (setf type      typ
             timestamp stamp)
       result)
     result))
+
+(defun format-sdl-commonevent (event name)
+  (with-foreign-slots ((type timestamp) event (:struct sdl-commonevent))
+    (format nil
+            "Event '~A' type=~A timestamp=~A"
+            name
+            type
+            timestamp)))
 
 (defcstruct sdl-displayevent
   "Display state change event (event.display)."
@@ -667,7 +680,7 @@
   (padding3  :uint8)
   (data1     :int32))
 
-(defun set-displayevent (result typ stamp disp evt dat1)
+(defun set-sdl-displayevent (result typ stamp disp evt dat1)
   (trivial-main-thread:with-body-in-main-thread (:blocking t)
     (with-foreign-slots ((type timestamp display event data1) result (:struct sdl-displayevent))
       (setf type      typ
@@ -677,6 +690,16 @@
             data1     dat1)
       result)
     result))
+
+(defun format-sdl-displayevent (event)
+  (with-foreign-slots ((type timestamp display event data1) event (:struct sdl-displayevent))
+    (format nil
+            "Event 'DisplayEvent' type=~A timestamp=~A display=~A event=~A data1=~A"
+            type
+            timestamp
+            display
+            event
+            data1)))
 
 (defcstruct sdl-windowevent
   "Window state change event (event.window)."
@@ -689,6 +712,29 @@
   (padding3  :uint8)
   (data1     :int32)
   (data2     :int32))
+
+(defun set-sdl-windowevent (result typ stamp winid evt dat1 dat2)
+  (trivial-main-thread:with-body-in-main-thread (:blocking t)
+    (with-foreign-slots ((type timestamp windowID event data1 data2) result (:struct sdl-windowevent))
+      (setf type      typ
+            timestamp stamp
+            windowID  winid
+            event     evt
+            data1     dat1
+            data2     dat2)
+      result)
+    result))
+
+(defun format-sdl-windowevent (event)
+  (with-foreign-slots ((type timestamp windowID event data1 data2) event (:struct sdl-windowevent))
+    (format nil
+            "Event 'WindowEvent' type=~A timestamp=~A windowID=~A event=~A data1=~A data2=~A"
+            type
+            timestamp
+            windowID
+            event
+            data1
+            data2)))
 
 (defcstruct sdl-keyboardevent
   "Keyboard button event (event.key)."
@@ -993,41 +1039,12 @@
   (drop      (:struct sdl-dropevent))
   (padding   :uint8 :count 56))
 
-(defun format-sdl-commonevent (event name)
-  (with-foreign-slots ((type timestamp) event (:struct sdl-commonevent))
-    (format nil
-            "Event '~A' type=~A timestamp=~A"
-            name
-            type
-            timestamp)))
-
 (defun format-sdl-quitevent (event)
   (with-foreign-slots ((type timestamp) event (:struct sdl-quitevent))
     (format nil
             "Event 'QuitEvent' type=~A timestamp=~A"
             type
             timestamp)))
-
-(defun format-sdl-displayevent (event)
-  (with-foreign-slots ((type timestamp display event data1) event (:struct sdl-displayevent))
-    (format nil
-            "Event 'DisplayEvent' type=~A timestamp=~A display=~A event=~A data1=~A"
-            type
-            timestamp
-            display
-            event
-            data1)))
-
-(defun format-sdl-windowevent (event)
-  (with-foreign-slots ((type timestamp windowID data1 data2) event (:struct sdl-windowevent))
-    (format nil
-            "Event 'WindowEvent' type=~A timestamp=~A windowID=~A event=~A data1=~A data2=~A"
-            type
-            timestamp
-            windowID
-            event
-            data1
-            data2)))
 
 (defun format-sdl-syswmevent (event)
   (with-foreign-slots ((type timestamp msg) event (:struct sdl-syswmevent))

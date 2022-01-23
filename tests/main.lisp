@@ -700,21 +700,41 @@
 ;; Declared in include/SDL_events.h
 
 (deftest test-struct-sdl-commonevent
-  (testing "Test struct SDL-COMMONEVENT and function SET-COMMONEVENT"
+  (testing "Test struct SDL-COMMONEVENT and functions
+SET-SDL-COMMONEVENT and FORMAT-SDL-COMMONEVENT"
            (with-foreign-objects ((event '(:struct sdl-commonevent)))
-             (set-commonevent event 1000 2000)
+             (set-sdl-commonevent event 1000 2000)
              (with-foreign-slots ((type timestamp) event (:struct sdl-commonevent))
                (ok (= 1000 type))
-               (ok (= 2000 timestamp))))))
+               (ok (= 2000 timestamp)))
+             (ok (string= "Event 'xyz' type=1000 timestamp=2000"
+                          (format-sdl-commonevent event "xyz"))))))
 
 (deftest test-struct-sdl-displayevent
-  (testing "Test struct SDL-DISPLAYEVENT and function SET-DISPLAYEVENT"
+  (testing "Test struct SDL-DISPLAYEVENT and functions
+SET-SDL-DISPLAYEVENT FORMAT-SDL-DISPLAYEVENT"
            (with-foreign-objects ((event '(:struct sdl-displayevent)))
-             (set-displayevent event 1000 2000 3000 32 4000)
+             (set-sdl-displayevent event 1000 2000 3000 32 4000)
              (with-foreign-slots ((type timestamp display event data1) event (:struct sdl-displayevent))
                (ok (= 1000 type))
                (ok (= 2000 timestamp))
                (ok (= 3000 display))
                (ok (= 32   event))
-               (ok (= 4000 data1))))))
+               (ok (= 4000 data1)))
+             (ok (string= "Event 'DisplayEvent' type=1000 timestamp=2000 display=3000 event=32 data1=4000"
+                          (format-sdl-displayevent event))))))
 
+(deftest test-struct-sdl-windowevent
+  (testing "Test struct SDL-WINDOWEVENT and functions
+SET-SDL-WINDOWEVENT FORMAT-SDL-WINDOWEVENT"
+           (with-foreign-objects ((event '(:struct sdl-windowevent)))
+             (set-sdl-windowevent event 1000 2000 3000 32 4000 5000)
+             (with-foreign-slots ((type timestamp windowID event data1 data2) event (:struct sdl-windowevent))
+               (ok (= 1000 type))
+               (ok (= 2000 timestamp))
+               (ok (= 3000 windowID))
+               (ok (= 32   event))
+               (ok (= 4000 data1))
+               (ok (= 5000 data2)))
+             (ok (string= "Event 'WindowEvent' type=1000 timestamp=2000 windowID=3000 event=32 data1=4000 data2=5000"
+                          (format-sdl-windowevent event))))))
